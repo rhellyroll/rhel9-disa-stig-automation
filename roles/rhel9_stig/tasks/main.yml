@@ -1,0 +1,32 @@
+---
+# This role applies ~300 DISA RHEL 9 STIG controls
+# Organized by category: kernel, audit, ssh, filesystem, network
+# Implementation based on DISA RHEL 9 STIG Release 2
+
+- name: Include kernel hardening tasks
+  include_tasks: kernel.yml
+  tags: [kernel, cat2]
+  when: stig_cat2_enforce | bool
+
+- name: Include audit configuration tasks
+  include_tasks: audit.yml
+  tags: [audit, cat2]
+  when: stig_cat2_enforce | bool
+
+- name: Include SSH hardening tasks
+  include_tasks: ssh.yml
+  tags: [ssh, cat1, cat2]
+  when: stig_cat1_enforce | bool
+
+- name: Include filesystem permission tasks
+  include_tasks: filesystem.yml
+  tags: [filesystem, cat2]
+  when: stig_cat2_enforce | bool
+
+- name: Display STIG compliance summary
+  debug:
+    msg: "STIG controls applied - Target compliance: {{ stig_compliance_target }}%"
+
+
+# Note: Full task implementation uses community ansible-lockdown/RHEL9-STIG
+# role patterns adapted for this 5-node fleet lab environment

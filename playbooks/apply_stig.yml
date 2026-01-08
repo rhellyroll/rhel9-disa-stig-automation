@@ -1,0 +1,16 @@
+---
+
+- name: Apply Disa STIG Hardening to RHEL 9 Fleet
+  hosts: managed
+  become: yes
+  gather_facts: yes
+
+
+  roles:
+   - rhel9_stig
+
+  post_tasks:
+    - name: Display compliance summary
+      debug:
+        msg: "STIG hardening complete - Review PLAY RECAP for compliance metrics"
+

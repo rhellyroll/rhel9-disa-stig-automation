@@ -1,0 +1,30 @@
+---
+
+# STIG compliance configuration
+
+stig_compliance_target: 96
+stig_cat1_enforce: true
+stig_cat2_enforce: true
+stig_cat3_enforce: false  # Low priority, lab resource constraints
+
+
+# Example STIG control variables (CAT II)
+# RHEL-09-213010: Prevent setuid core dumps
+kernel_suid_dumpable: 0
+
+# RHEL-09-213015: Restrict dmesg to root
+kernel_kptr_restrict: 2
+
+# SSH hardening (CAT I/II controls)
+ssh_permit_root_login: "no"
+ssh_protocol: 2
+ssh_max_auth_tries: 4
+
+# Audit configuration (CAT II)
+auditd_max_log_file: 8
+auditd_max_log_file_action: rotate
+auditd_space_left_action: email
+
+
+# Filesystem permissions
+secure_world_writable_dirs: true
